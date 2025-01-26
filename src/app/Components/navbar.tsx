@@ -3,5 +3,5 @@
 import React from "react";
 
 export default function Navbar() {
-  return <div className="bg-black text-white h-14">Navbar</div>;
+  return <div className="bg-white text-white h-14">Navbar</div>;
 }
