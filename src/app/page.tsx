@@ -1,7 +1,12 @@
 import Image from "next/image";
+import heading from "./Images/mainimage.png";
+import junkyard from "./Images/junkyard.jpg";
 
 export default function Home() {
   return (
-    <div className="grid bg-white grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]"></div>
+    <div className=" bg-white  items-center justify-items-center min-h-screen">
+      <Image src={heading} alt="main-image" width={800} height={400} />
+      <Image src={junkyard} alt="junk-yard" width={800} height={400} />
+    </div>
   );
 }
