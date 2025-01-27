@@ -3,6 +3,7 @@ import heading from "./Images/heading.png";
 import junkyard from "./Images/junkyard.webp";
 import ItemCard from "./Components/itemcard";
 import clock from "./Images/clock.webp";
+import RotatingAdBar from "./Components/RotatingAdBar";
 
 const items = [
   {
@@ -30,8 +31,9 @@ const items = [
 
 export default function Home() {
   return (
+
     <div className=" bg-white  items-center justify-items-center min-h-screen flex flex-col">
-      <p className="text-[50px] font-semibold text-black">THE JUNK YARD</p>
+    <RotatingAdBar/>
       {/* <Image
         className="absolute top-0 z-0"
         src={junkyard}
@@ -40,6 +42,8 @@ export default function Home() {
         objectFit="cover"
         objectPosition="center"
       /> */}
+
+      <p className="text-[50px] font-semibold text-black m-10"><span className="text-orange-400">HOT</span> ON SALE 🔥</p>
       <div className="flex flex-row items-center gap-8">
         {items.map((item) => (
           <ItemCard
@@ -51,7 +55,6 @@ export default function Home() {
           />
         ))}
       </div>
-    
     </div>
   );
 }

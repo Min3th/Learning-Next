@@ -2,4 +2,15 @@
 @tailwind components;
 @tailwind utilities;
 
+@keyframes scrollAd {
+  0% {
+    transform: translateX(100%);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
 
+.animate-scrollAd {
+  animation: scrollAd 30s linear infinite;
+}
