@@ -30,14 +30,8 @@ const items = [
 
 export default function Home() {
   return (
-    <div className=" bg-white  items-center justify-items-center min-h-screen relative flex flex-col">
-      <Image
-        src={heading}
-        alt="main-image"
-        width={700}
-        height={400}
-        className="z-50"
-      />
+    <div className=" bg-white  items-center justify-items-center min-h-screen flex flex-col">
+      <p className="text-[50px] font-semibold text-black">THE JUNK YARD</p>
       {/* <Image
         className="absolute top-0 z-0"
         src={junkyard}
@@ -46,7 +40,7 @@ export default function Home() {
         objectFit="cover"
         objectPosition="center"
       /> */}
-      <div className="flex flex-row items-center">
+      <div className="flex flex-row items-center gap-8">
         {items.map((item) => (
           <ItemCard
             key={item.id}
@@ -57,6 +51,7 @@ export default function Home() {
           />
         ))}
       </div>
+    
     </div>
   );
 }
