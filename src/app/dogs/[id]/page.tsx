@@ -1,29 +1,30 @@
-import {kv} from '@vercel/kv'
+import { kv } from '@vercel/kv';
 
-interface Dog{
-    name:string;
-    image:string;
-    breed:string;
+interface Dog {
+  name: string;
+  image: string;
+  breed: string;
 }
 
-export default async function DogEditPage({
-    params,
-}:{params:{id:string};}){
+export default async function DogPage() {
+  const dogKeys = await kv.keys("dogs:*"); 
+  const dogs = await Promise.all(dogKeys.map(async (key) => await kv.get<Dog>(key)));
 
-    const key = `dogs:${params.id}`;
-    const dog = await kv.get<Dog>(key);
-    return(
-        <div>
-            <form>
-                <label>Name</label>
-                <input name="title" type="text" defaultValue={dog?.name}/>
-                <label>Image</label>
-                <input name="image" type="text" defaultValue={dog?.image}/>
-                <label>Breed</label>
-                <input name='title' type='text' defaultValue={dog?.breed}/>
-                
 
-            </form>
-        </div>
-    )
+  const validDogs = dogs.filter((dog): dog is Dog => dog !== null);
+
+  return (
+    <div>
+      <h1>Dog Information</h1>
+      <div>
+        {validDogs.map((dog, index) => (
+          <div key={index}>
+            <p>Name: {dog.name}</p>
+            <p>Breed: {dog.breed}</p>
+            {dog.image && <img src={dog.image} alt={dog.name} style={{ width: '200px' }} />}
+          </div>
+        ))}
+      </div>
+    </div>
+  );
 }
