@@ -1,4 +1,5 @@
 import { createClient } from '@supabase/supabase-js';
+import Image from 'next/image'
 
 const supabaseUrl = 'https://cpnubbbriscoavcadlpg.supabase.co';
 const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_KEY || ''; // Ensure a fallback for the key
@@ -32,6 +33,7 @@ export default async function ProductPage() {
               <p>Name: {product.name}</p>
               <p>Price: ${product.price}</p>
               <p>Quantity available: {product["no of items"]}</p>
+              <Image src={product.image} alt='product-image' width={300} height={400}/>
             </div>
           ))
         ) : (
