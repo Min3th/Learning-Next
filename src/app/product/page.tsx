@@ -1,5 +1,6 @@
 import { createClient } from '@supabase/supabase-js';
 import Image from 'next/image'
+import ItemCard from '../Components/itemcard';
 
 const supabaseUrl = 'https://cpnubbbriscoavcadlpg.supabase.co';
 const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_KEY || ''; // Ensure a fallback for the key
@@ -29,11 +30,14 @@ export default async function ProductPage() {
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 p-4">
         {Product && Product.length > 0 ? (
           Product.map((product, index) => (
+            
             <div key={index} className="text-black">
-              <p>Name: {product.name}</p>
-              <p>Price: ${product.price}</p>
-              <p>Quantity available: {product["no of items"]}</p>
-              <Image src={product.image} alt='product-image' width={300} height={400}/>
+              <ItemCard key={product.id} 
+                        image={product.image}
+                        title={product.name}
+                        quantity = {product["no of items"]}
+                        price={product.price}/>
+              
             </div>
           ))
         ) : (
