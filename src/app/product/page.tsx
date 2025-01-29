@@ -25,8 +25,8 @@ export default async function ProductPage() {
   }
 
   return (
-    <div>
-      <h1>Product Prices</h1>
+    <div className='flex flex-col items-center justify-center'>
+      <p className='text-[50px] font-semibold'>Products Today</p>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 p-4">
         {Product && Product.length > 0 ? (
           Product.map((product, index) => (
