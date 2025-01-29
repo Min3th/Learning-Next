@@ -1,52 +1,19 @@
-import axios from "axios";
+import { createClient } from '@supabase/supabase-js';
 
-interface Product {
-  id: number;
-  price: number;
-  name: string;
-  "no of items": number; // Column name with spaces
-}
+const supabaseUrl = 'https://cpnubbbriscoavcadlpg.supabase.co';
+const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_KEY || ''; // Ensure a fallback for the key
+const supabase = createClient(supabaseUrl, supabaseKey);
 
 export default async function ProductPage() {
-  const API_URL = "https://cpnubbbriscoavcadlpg.supabase.co/rest/v1/Product";
-  const API_KEY =
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNwbnViYmJyaXNjb2F2Y2FkbHBnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzgwNTY3MzIsImV4cCI6MjA1MzYzMjczMn0.MAi1mWSZOZUQ4vtUYvBGPoo0mvsWdyhpYVEnxB9iY2M";
-  console.log(API_KEY);
-  try {
-    const { data: products } = await axios.get<Product[]>(API_URL, {
-      headers: {
-        apikey: API_KEY,
-        Authorization: `Bearer ${API_KEY}`,
-      },
-    });
-    console.log("products:", products);
-
-    return (
-      <div>
-        <h1>Product List</h1>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 p-4">
-          <p>Hello!</p>
-          {products.map((product) => (
-            <div key={product.id} className="text-black">
-              <p>Hello!</p>
-              <h2 className="text-lg font-semibold">{product.name}Hello</h2>
-              <p className="text-black">Price: ${product.price}</p>
-              <p>Available Items: {product["no of items"]}</p>
-            </div>
-          ))}
-        </div>
-      </div>
-    );
-  } catch (error: any) {
-    if (axios.isAxiosError(error)) {
-      console.error("Axios Error Details:");
-      console.error("Response Data:", error.response?.data);
-      console.error("Status Code:", error.response?.status);
-      console.error("Headers:", error.response?.headers);
-    } else {
-      console.error("Unexpected Error:", error);
-    }
-
+  // Fetch only the "price" column from the "Product" table
+  
+  let { data: Product, error } = await supabase
+  .from('Product')
+  .select('*')
+        
+  console.log("price:",Product)
+  if (error) {
+    console.error("Supabase Error:", error);
     return (
       <div>
         <h1>Error</h1>
@@ -54,4 +21,23 @@ export default async function ProductPage() {
       </div>
     );
   }
+
+  return (
+    <div>
+      <h1>Product Prices</h1>
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 p-4">
+        {Product && Product.length > 0 ? (
+          Product.map((product, index) => (
+            <div key={index} className="text-black">
+              <p>Name: {product.name}</p>
+              <p>Price: ${product.price}</p>
+              <p>Quantity available: {product["no of items"]}</p>
+            </div>
+          ))
+        ) : (
+          <p>No products found.</p>
+        )}
+      </div>
+    </div>
+  );
 }
