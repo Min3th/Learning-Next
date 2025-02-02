@@ -19,15 +19,13 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className=" ">
-        <div className="">
-          <Navbar />
-        </div>
+        <Navbar />
 
-        <div className="mt-10">
-          <MiniDrawer />
-        </div>
         <AppRouterCacheProvider>
-          <ThemeProvider theme={theme}>{children}</ThemeProvider>
+          <ThemeProvider theme={theme}>
+            <MiniDrawer />
+            {children}
+          </ThemeProvider>
         </AppRouterCacheProvider>
       </body>
     </html>
