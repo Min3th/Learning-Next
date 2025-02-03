@@ -3,11 +3,15 @@
 import React from "react";
 import Image from "next/image";
 import logo from "../Images/headingrem.png";
+import Link from "next/link";
 
 export default function Navbar() {
   return (
     <div className="bg-white drop-shadow-lg h-14">
-      <div className="flex flex-row items-center justify-center relative">
+      <Link
+        className="flex flex-row items-center justify-center relative"
+        href="/"
+      >
         <Image
           src={logo}
           alt="icon"
@@ -15,7 +19,7 @@ export default function Navbar() {
           height={100}
           className="absolute top-[-25px]"
         />
-      </div>
+      </Link>
     </div>
   );
 }
